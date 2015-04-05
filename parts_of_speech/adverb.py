@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 
-from word import Word
+from parts_of_speech import word as w
 
-class Adverb(Word):
+class Adverb(w.Word):
 
-    def __init__(self, word, definition):
+    def __init__(self, wid, word, definition):
         (adv, 
         (adv_eng,
         pic)) = (word, definition)
@@ -16,4 +16,4 @@ class Adverb(Word):
                                 }
         }
 
-        Word.__init__(self, word, forms, pic)
+        w.Word.__init__(self, wid, word, forms, pic)

@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 
-from word import Word
+from parts_of_speech import word as w
 
-class Verb(Word):
+class Verb(w.Word):
 
-    def __init__(self, word, definition):
+    def __init__(self, wid, word, definition):
         (infinitive, 
         (imperative,
         present_tense,
@@ -38,4 +38,4 @@ class Verb(Word):
                                 }
         }
 
-        Word.__init__(self, word, forms, pic)
+        w.Word.__init__(self, wid, word, forms, pic)

@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 
-from word import Word
+from parts_of_speech import word as w
 
-class Noun(Word):
+class Noun(w.Word):
 
-    def __init__(self, word, gender, definition):
+    def __init__(self, wid, word, gender, definition):
         (indef_singular, 
         (indef_plural,
         def_singular,
@@ -32,16 +32,16 @@ class Noun(Word):
                                 }
         }
 
-        Word.__init__(self, word, forms, pic)
+        w.Word.__init__(self, wid, word, forms, pic)
 
 
 class En(Noun):
 
-    def __init__(self, word, definition):
-        Noun.__init__(self, word, 'en', definition)
+    def __init__(self, wid, word, definition):
+        Noun.__init__(self, wid, word, 'en', definition)
 
 
 class Ett(Noun):
 
-    def __init__(self, word, definition):
-        Noun.__init__(self, word, 'ett', definition)
+    def __init__(self, wid, word, definition):
+        Noun.__init__(self, wid, word, 'ett', definition)

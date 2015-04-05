@@ -1,18 +1,13 @@
 #! /usr/bin/env python3
 
-
 import csv
 import sys
 import argparse
 import shelve
 
 # Import our parts of speech classes
-sys.path.append('./parts_of_speech/')
-import adjective as adj
-import adverb as adv
-import noun
-import verb
-import word
+sys.path.append('..')
+import parts_of_speech as pos
 
 
 class Svenska_Parser:
@@ -28,13 +23,13 @@ class Svenska_Parser:
         
         if not dispatcher_override:
             self.dispatcher = {
-                'adj': adj.Adjective,
-                'adv': adv.Adverb,
-                'sent adv': adv.Adverb,
-                'en': noun.En,
-                'ett': noun.Ett,
-                'verb': verb.Verb,
-                'word': word.Word
+                'adj':      pos.adjective.Adjective,
+                'adv':      pos.adverb.Adverb,
+                'sent adv': pos.adverb.Adverb,
+                'en':       pos.noun.En,
+                'ett':      pos.noun.Ett,
+                'verb':     pos.verb.Verb,
+                'word':     pos.word.Word
             }
         else:
             self.dispatcher = dispatcher_override
@@ -46,21 +41,21 @@ class Svenska_Parser:
             with open(a_file, 'r') as f:
                 reader = csv.reader(f, delimiter = delimiter)
                 for row in reader:
-                    part_of_speech, word, *definition = row
+                    wid, part_of_speech, word, *definition = row
                     if row[0][0] == '#': continue # skip comments
-                    self.parsed_words.setdefault(word, []).append(self.dispatcher[part_of_speech](word, definition))
+                    self.parsed_words.setdefault(word, []).append(self.dispatcher[part_of_speech](wid, word, definition))
 
     def shelve_word_list(self, shelve_file):
         '''Shelve the parsed word list.'''
 
         with shelve.open(shelve_file, 'c') as shelf:
-            shelf[Svenska_Parser.key_word_list] = self.parsed_words
+            shelf[self.key_word_list] = self.parsed_words
 
     def unshelve_word_list(self, shelve_file):
         '''Un-shelve word objects from file.'''
 
         with shelve.open(shelve_file, 'r') as shelf:
-            self.words_from_shelve = shelf[Svenska_Parser.key_word_list]
+            self.words_from_shelve = shelf[self.key_word_list]
 
 
 if __name__ == '__main__':

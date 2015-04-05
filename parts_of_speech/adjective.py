@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 
-from word import Word
+from parts_of_speech import word as w
 
-class Adjective(Word):
+class Adjective(w.Word):
 
-    def __init__(self, word, definition):
+    def __init__(self, wid, word, definition):
         (en, 
         (ett,
         plural,
@@ -38,4 +38,4 @@ class Adjective(Word):
                                 }
         }
 
-        Word.__init__(self, word, forms, pic)
+        w.Word.__init__(self, wid, word, forms, pic)
