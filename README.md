@@ -1,4 +1,4 @@
 svenska
 =======
 
-Study Swedish!
+Swedish parts of speech as Python objects.
